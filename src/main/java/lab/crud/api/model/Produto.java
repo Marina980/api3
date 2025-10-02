@@ -4,7 +4,17 @@ import java.math.BigDecimal;
 import java.time.LocalDate;
 import java.util.Objects;
 
+import jakarta.persistence.Entity;
+import jakarta.persistence.GeneratedValue;
+import jakarta.persistence.GenerationType;
+import jakarta.persistence.Id;
+
+@Entity
 public class Produto {
+	
+	
+	@Id
+	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	
 	private Integer id;
 	private String nome;
@@ -12,9 +22,11 @@ public class Produto {
 	private BigDecimal preco;
 	private LocalDate dataCriacao;
 	
+	
+
 	public Produto() {
-		
 	}
+
 
 	//Alt + SHIFT + S(Source/Fonte/Código Fonte)
 	public Integer getId() {
