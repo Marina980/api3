@@ -76,44 +76,38 @@ public class ProdutoController {
 	
 	
 
-@PutMapping("/produtos/{id}")
-public ResponseEntity<Object> atualisarProduto(
-		@PathVariable Integer id,
-		@RequestBody Produto prod) {
-Optional<Produto> produto = repository.findById(id);
+	@PutMapping("/produtos/{id}")
+	public ResponseEntity<Object> atualisarProduto(@PathVariable Integer id, @RequestBody Produto prod) {
+		Optional<Produto> produto = repository.findById(id);
 
-if (produto.isEmpty()) {
-return ResponseEntity
-		.status(HttpStatus.NOT_FOUND)
-		.body("Produto não encontrado!");
+		if (produto.isEmpty()) {
+			return ResponseEntity.status(HttpStatus.NOT_FOUND).body("Produto não encontrado!");
 
-}
-prod.setId(id);
-prod.setDataCriacao(produto.get().getDataCriacao());
-repository.save(prod);
+		}
+		prod.setId(id);
+		prod.setDataCriacao(produto.get().getDataCriacao());
+		repository.save(prod);
 
-return ResponseEntity
-		.status(HttpStatus.OK)
-		.body("Produto atualizado com sucesso!");
-}
-//curl -X DELETE http://localhost:8080/produtos/1
-@DeleteMapping("/produtos/{id}")
-public ResponseEntity<Object> apagarProduto(
-		@PathVariable Integer id) {
-	
-	Optional<Produto> produto = repository.findById(id);
-	
-	if(produto.isEmpty()) {
-		return ResponseEntity
-				.status(HttpStatus.NOT_FOUND)
-				.body("Produto não encontrado!");
+		return ResponseEntity.status(HttpStatus.OK).body("Produto atualizado com sucesso!");
 	}
-	Produto prod = produto.get();
-	repository.delete(prod);
-	
-	return ResponseEntity
-			.status(HttpStatus.OK)
-			.body("Produto apagado com sucesso!");
-}
+	//curl -X DELETE http://localhost:8080/produtos/1
+	@DeleteMapping("/produtos/{id}")
+	public ResponseEntity<Object> apagarProduto(
+			@PathVariable Integer id) {
+		
+		Optional<Produto> produto = repository.findById(id);
+		
+		if(produto.isEmpty()) {
+			return ResponseEntity
+					.status(HttpStatus.NOT_FOUND)
+					.body("Produto não encontrado!");
+		}
+		Produto prod = produto.get();
+		repository.delete(prod);
+		
+		return ResponseEntity
+				.status(HttpStatus.OK)
+				.body("Produto apagado com sucesso!");
+	}
 
 }
